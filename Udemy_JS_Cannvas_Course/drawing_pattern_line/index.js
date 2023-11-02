@@ -19,9 +19,9 @@ window.addEventListener('click', e => {
         //     console.log(lints)
         // }
         lint.update(e.clientX, e.clientY);
-        // console.log(lint.isErased);
-        lints = lints.filter(lint => !lint.isErased);
-        console.log(lints);
+        console.log(lint.isErased);
+        // lints = lints.filter(lint => !lint.isErased);
+        // console.log(lints);
     })
 })
 
