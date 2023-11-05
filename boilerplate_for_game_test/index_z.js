@@ -10,7 +10,7 @@ window.addEventListener('resize', () => {
     setup();
     animate(0);
 })
-            
+
 function setup(){
     canvas = document.querySelector('#canvas');
     ctx = canvas.getContext('2d');

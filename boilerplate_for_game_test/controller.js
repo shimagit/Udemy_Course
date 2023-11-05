@@ -44,6 +44,6 @@ export class Controller{
     window.addEventListener('keyup', () => {
       this.keys.length = 0;
     })
-    
+
   }
 }

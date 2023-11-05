@@ -63,7 +63,7 @@ function pauseControl(){
             ctx.font = `italic ${canvas.width/15}px Candara`;
             ctx.fillText("PAUSE", canvas.width/2, canvas.height/2);
             ctx.font = `italic ${canvas.width/20}px Candara`;
-            ctx.fillText("Press 'o' to Resume", canvas.width/2, canvas.height * 2/3);
+            ctx.fillText("Press 'o' to Resume", canvas.width/2, canvas.height*2/3);
             ctx.restore();
         }
         if(manager.controller.keys.includes('o')){
@@ -71,4 +71,3 @@ function pauseControl(){
         }
     }
 }
-
