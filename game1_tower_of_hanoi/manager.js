@@ -39,7 +39,7 @@ export class Manager{
       if(this.game.gameover){
         setTimeout(()=> {
           this.state = this.states[2];
-        }, 800)
+        }, 1500)
       }
     }else if(this.state === this.states[2]){
       // rows[6]に「スタート画面へ戻る」を配置している
@@ -94,7 +94,10 @@ export class Manager{
     this.ctx.stroke();
     // GAMEOVER
     this.ctx.font = `${this.canvas.width/15}px Candara`;
-    this.ctx.fillText("GAME OVER", this.rows[2].cx, this.rows[2].cy);
+    this.ctx.fillText("Congratulations!", this.rows[2].cx, this.rows[2].cy);
+    // Time
+    this.ctx.font = `${this.canvas.width/25}px Candara`;
+    this.ctx.fillText(`Your Time : ${((this.game.currentTime - this.game.startTime)/1000).toFixed(2)}[s]`, this.rows[4].cx, this.rows[4].cy); 
     // back to Start
     this.ctx.font = `italic ${this.canvas.width/30}px Candara`;
     this.ctx.fillText("Click here to Restart", this.rows[6].cx, this.rows[6].cy);
@@ -123,6 +126,7 @@ export class Manager{
         this.game.areas = this.game.createAreas();
         setTimeout(() => {
           this.state = this.states[1];
+          this.game.startTime = new Date();
         }, 800)
       }
     }

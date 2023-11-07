@@ -52,4 +52,13 @@ export class Area{
       })
     }
   }
+
+  moveDiskTo(anotherArea){
+    if(this.disks){
+      if(anotherArea.disks.length === 0 || anotherArea.disks[anotherArea.disks.length -1] < this.disks[this.disks.length -1]){
+        const disk = this.disks.pop();
+        anotherArea.disks.push(disk);
+      }
+    }
+  }
 }
