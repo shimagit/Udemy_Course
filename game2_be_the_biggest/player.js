@@ -1,3 +1,5 @@
+import {Effect} from './effect.js';
+
 export class Player{
   constructor(canvas, ctx, controller){
     this.canvas = canvas;
@@ -10,6 +12,8 @@ export class Player{
     this.speedY = 0;
     this.acceleration = 2;
     this.friction = 0.9;
+    this.effect = null;
+    this.alive = true;
   }
 
   draw(){
@@ -23,6 +27,8 @@ export class Player{
     this.ctx.arc(this.x, this.y, this.r * 3/4, 0, Math.PI * 2);
     this.ctx.fill();
     this.ctx.restore();
+
+    if(this.effect) this.effect.draw();
   }
 
   update(){
@@ -41,5 +47,13 @@ export class Player{
     if(this.canvas.width < this.x + this.r) this.x = this.canvas.width - this.r;
     if(this.y - this.r < 0) this.y = this.r;
     if(this.canvas.height < this.y + this.r) this.y = this.canvas.height - this.r;
+
+    if(this.alive && this.r <= 3){
+      this.alive = false;
+      this.r = 0;
+      this.effect = new Effect(this.canvas, this.ctx, this.x, this.y);
+    }
+
+    if(this.effect) this.effect.update();
   }
 }

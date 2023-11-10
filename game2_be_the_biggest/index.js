@@ -45,7 +45,14 @@ function animate(timestamp){
 
     if(!manager.controller.pause){
         if(timestamp - lastTime > interval){
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if(manager.state === manager.states[1]){
+                ctx.save();
+                ctx.fillStyle ="rgba(25, 14, 79, 0.5)";
+                ctx.fillRect(0,0, canvas.width, canvas.height);
+                ctx.restore();
+            }else{
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
             draw();
             update();
             lastTime = timestamp;

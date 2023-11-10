@@ -95,6 +95,9 @@ export class Manager{
     // GAMEOVER
     this.ctx.font = `${this.canvas.width/15}px Candara`;
     this.ctx.fillText("GAME OVER", this.rows[2].cx, this.rows[2].cy);
+    // result
+    this.ctx.font = `${this.canvas.width/25}px Candara`;
+    this.ctx.fillText(`Result >> ${this.game.menuMap[this.game.menuIndex].name} : stage - ${this.game.stage + 1}`, this.rows[4].cx, this.rows[4].cy);
     // back to Start
     this.ctx.font = `italic ${this.canvas.width/30}px Candara`;
     this.ctx.fillText("Click here to Restart", this.rows[6].cx, this.rows[6].cy);

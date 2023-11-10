@@ -13,6 +13,7 @@ export class Game{
     this.player = new Player(this.canvas, this.ctx, this.controller);
     this.balls = null;
     this.numOfBalls = 20;
+    this.stage = 0;
   }
 
   draw(){
@@ -21,6 +22,7 @@ export class Game{
     this.balls.forEach(ball => {
       ball.draw();
     })
+    this.showStage();
   }
 
   update(){
@@ -43,13 +45,15 @@ export class Game{
     this.gameover = false;
     this.clickAcceptable = true;
     this.player = new Player(this.canvas, this.ctx, this.controller);
+    this.stage = 0;
+    this.numOfBalls = 20;
   }
 
   createBalls(){
     const newBalls = [];
     for(let i = 0; i < this.numOfBalls; i++){
       const ball = new Ball(this.canvas, this.ctx);
-      ball.speed = this.menuMap[this.menuIndex].speed * (1 + Math.random());
+      ball.speed = this.menuMap[this.menuIndex].speed * (1 + Math.random() + this.stage /3);
       newBalls.push(ball);
 
       this.balls = newBalls;
@@ -74,6 +78,20 @@ export class Game{
 
   winOrLose(){
     if(this.player.r === 0) this.gameover = true;
-    if(this.balls.length === 0 ) this.gameover = true;
+    if(this.balls.length === 0 ){
+      this.stage++;
+      this.numOfBalls += 4;
+      this.createBalls();
+      this.player = new Player(this.canvas, this.ctx, this.controller);
+    }
+  }
+
+  showStage(){
+    this.ctx.save();
+    this.ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+    this.ctx.font = `${this.canvas.width/12}px Candara`;
+    this.ctx.fillText(`Level:${this.menuMap[this.menuIndex].name}`, this.canvas.width/2, this.canvas.height*2/5);
+    this.ctx.fillText(`Stage - ${this.stage + 1}`, this.canvas.width/2, this.canvas.height*3/5);
+    this.ctx.restore();
   }
 }
