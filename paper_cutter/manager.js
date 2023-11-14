@@ -23,7 +23,8 @@ export class Manager{
       this.game.draw();
       this.showMessage();
     }else if(this.state === this.states[2]){
-      this.showGameOverPage();
+      if(this.game.player.life <= 0) this.showGameOverPage();
+      else this.showClearPage();
     }
   }
 
@@ -105,6 +106,29 @@ export class Manager{
     this.ctx.restore();
   }
 
+  showClearPage(){
+    this.ctx.save();
+    this.canvas.style.backgroundColor = "#37327e";
+    this.ctx.fillStyle = "#f24333";
+    this.ctx.strokeStyle = "#bfbdc1";
+    this.ctx.lineWidth = 8;
+    this.ctx.lineJoin = "round";
+    // frame
+    this.ctx. beginPath();
+    this.ctx.rect(this.canvas.width/6, this.canvas.height/6, this.canvas.width * 4/6, this.canvas.height * 4/6);
+    this.ctx.stroke();
+    // Stage Clear
+    this.ctx.font = `${this.canvas.width/15}px Candara`;
+    this.ctx.fillText("Congraturations!", this.rows[2].cx, this.rows[2].cy);
+    // Message
+    this.ctx.font = `${this.canvas.width/25}px Candara`;
+    this.ctx.fillText(`You cleard all the ${this.game.menuMap[this.game.menuIndex].name} stage`, this.rows[4].cx, this.rows[4].cy);
+    // back to Start
+    this.ctx.font = `italic ${this.canvas.width/30}px Candara`;
+    this.ctx.fillText("Click here to Restart", this.rows[6].cx, this.rows[6].cy);
+    this.ctx.restore();
+  }
+
   selectAndPlay(cx, cy, i){
     // cx, cyはrectの中心点の座標
     if(this.controller.isMouseInsideRect(cx - this.menuWidth/2, cy - this.menuHeight/2, this.menuWidth, this.menuHeight)){
@@ -123,6 +147,7 @@ export class Manager{
         // メニューはrows[3] - rows[5]であるため、iは3から開始される
         // menuIndex（０スタート）に合わせるため i - 3 としておく
         this.game.menuIndex = i - 3;
+        this.game.speed = this.game.menuMap[this.game.menuIndex].speed;
         setTimeout(() => {
           this.state = this.states[1];
         }, 800)

@@ -14,6 +14,7 @@ export class Player{
     this.friction = 0.85;
     this.direction = null;
     this.laser = null;
+    this.life = 100;
   }
 
   draw(){
